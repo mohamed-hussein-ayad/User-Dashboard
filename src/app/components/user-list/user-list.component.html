@@ -1,1 +1,47 @@
-<p>user-list works!</p>
+<div class="user-list-container">
+  <div *ngIf="isLoading; else userListContent" class="loading-bar">
+    <!-- Display your loading bar here -->
+    Loading...
+  </div>
+  <ng-template #userListContent>
+    <div class="cards-container">
+      <div
+        *ngFor="let user of users"
+        (click)="navigateToUserDetails(user.id)"
+        class="user-card"
+      >
+        <mat-card
+          style="
+            background: linear-gradient(
+              to right top,
+              var(--primary),
+              var(--primary-a) 25%,
+              var(--primary-b) 50%,
+              var(--primary) 80%,
+              var(--primary-a)
+            );
+          "
+        >
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title style="transform: translateY(10px)">
+              {{ user.id }} {{ user.first_name }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="user-details-text">Click to display other user details</p>
+          </mat-card-content>
+          <mat-card-actions> </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="paginator-container">
+        <mat-paginator
+          [length]="totalUsers"
+          [pageSize]="pageSize"
+          (page)="onPageChange($event)"
+          style="transform: translateY(50px); background-color: transparent"
+        ></mat-paginator>
+      </div>
+    </div>
+  </ng-template>
+</div>

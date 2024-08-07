@@ -1,0 +1,44 @@
+.d-container {
+  padding: 0 60px;
+}
+
+.d-container h2 {
+  font-weight: 500;
+  font-size: x-large;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.user-details-container {
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 100px;
+  right: 15px;
+  background-color: var(--back-button-dark);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.back-button:hover {
+  background-color: var(--back-button-light);
+}
+
+@media (max-width: 767px) {
+  .content {
+    flex-direction: column;
+  }
+}

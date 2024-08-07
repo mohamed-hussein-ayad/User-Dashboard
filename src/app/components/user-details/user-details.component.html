@@ -1,1 +1,29 @@
 <p>user-details works!</p>
+<div class="d-container">
+  <div *ngIf="user">
+    <button mat-button (click)="goBack()" class="back-button">
+      Back to User List
+    </button>
+    <div class="user-details-container">
+      <h2>User Details</h2>
+      <div class="content">
+        <img
+          *ngIf="user?.data?.avatar"
+          [src]="user?.data?.avatar"
+          alt="User Avatar"
+          style="
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+          "
+        />
+        <div class="text-content">
+          <p>{{ user?.data?.first_name }} {{ user?.data?.last_name }}</p>
+          <p>{{ user?.data?.email }}</p>
+        </div>
+      </div>
+      <!-- <p><strong>ID:</strong> {{user?.data?.id}}</p> -->
+    </div>
+  </div>
+</div>
