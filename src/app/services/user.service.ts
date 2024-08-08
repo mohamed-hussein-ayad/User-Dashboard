@@ -11,11 +11,11 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}?page=1`);
+  getUsers(page: number = 1): Observable<any> {
+    return this.http.get(`${this.apiUrl}?page=${page}`);
   }
 
-  searchUsersById(id: string): Observable<any> {
+  getUserById(id: string): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get(url);
   }

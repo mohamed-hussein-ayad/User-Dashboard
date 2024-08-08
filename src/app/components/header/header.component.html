@@ -1,35 +1,10 @@
-<mat-toolbar color="primary" style="justify-content: space-between">
+<mat-toolbar style="justify-content: space-between">
   <span>Angular Dashboard</span>
   <input
     matInput
     type="text"
     placeholder="Search by ID"
     [(ngModel)]="searchQuery"
-    (input)="search()"
+    (input)="onSearch()"
   />
 </mat-toolbar>
-
-<!-- Display search results with loading indicator -->
-<div style="padding: 25px">
-  <div *ngIf="isLoading; else searchResultsContent">
-    <!-- Loading indicator -->
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </div>
-  <ng-template #searchResultsContent>
-    <div *ngIf="searchResults.length > 0">
-      <h4>Search Results:</h4>
-      <ul>
-        <li
-          *ngFor="let result of searchResults"
-          (click)="navigateToDetails(result.id)"
-          style="cursor: pointer"
-        >
-          {{ result.first_name }} {{ result.last_name }}
-        </li>
-      </ul>
-    </div>
-    <div *ngIf="searchResults.length === 0 && searchQuery">
-      No matching results found.
-    </div>
-  </ng-template>
-</div>

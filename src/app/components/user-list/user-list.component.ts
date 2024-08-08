@@ -3,9 +3,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user.service';
+import { User } from '../../interfaces/user';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-user-list',
@@ -14,16 +14,16 @@ import { UserService } from '../../services/user.service';
     CommonModule,
     MatPaginatorModule,
     MatCardModule,
-    RouterModule,
     NgIf,
     NgFor,
+    HeaderComponent,
   ],
   templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.scss',
+  styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  @Input() S_users?: User[];
   users: User[] = [];
+  filteredUsers: User[] = [];
   totalUsers: number = 0;
   pageSize: number = 6;
   isLoading: boolean = false;
@@ -39,14 +39,34 @@ export class UserListComponent implements OnInit {
     this.userService.getUsers().subscribe((response: any) => {
       this.users = response.data as User[];
       this.totalUsers = response.total;
+      this.filteredUsers = this.users; // Initially show all users
       this.isLoading = false;
     });
+  }
+
+  onSearch(query: string): void {
+    if (query) {
+      this.isLoading = true;
+      this.userService.getUserById(query).subscribe({
+        next: (response: any) => {
+          this.filteredUsers = [response.data as User];
+          this.isLoading = false;
+        },
+        error: () => {
+          this.filteredUsers = [];
+          this.isLoading = false;
+        },
+      });
+    } else {
+      this.filteredUsers = this.users;
+    }
   }
 
   onPageChange(event: any): void {
     const pageIndex = event.pageIndex + 1;
     this.userService.getUsersByPage(pageIndex).subscribe((response: any) => {
       this.users = response.data as User[];
+      this.filteredUsers = this.users;
     });
   }
 

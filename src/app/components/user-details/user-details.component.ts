@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
-
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-user-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss',
 })
@@ -34,6 +34,6 @@ export class UserDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/users']);
+    this.router.navigate(['/user']);
   }
 }

@@ -1,47 +1,37 @@
-<div class="user-list-container">
+<app-header (searchEvent)="onSearch($event)" />
+
+<div class="container mt-4 user-list-container">
   <div *ngIf="isLoading; else userListContent" class="loading-bar">
     <!-- Display your loading bar here -->
     Loading...
   </div>
   <ng-template #userListContent>
-    <div class="cards-container">
+    <div class="cards-container" *ngIf="!isLoading">
       <div
-        *ngFor="let user of users"
+        *ngFor="let user of filteredUsers"
         (click)="navigateToUserDetails(user.id)"
         class="user-card"
       >
-        <mat-card
-          style="
-            background: linear-gradient(
-              to right top,
-              var(--primary),
-              var(--primary-a) 25%,
-              var(--primary-b) 50%,
-              var(--primary) 80%,
-              var(--primary-a)
-            );
-          "
-        >
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title style="transform: translateY(10px)">
-              {{ user.id }} {{ user.first_name }}
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p class="user-details-text">Click to display other user details</p>
-          </mat-card-content>
-          <mat-card-actions> </mat-card-actions>
-        </mat-card>
+        <div class="card" style="width: 18rem">
+          <img [src]="user?.avatar" alt="avatar" />
+          <div class="card-body">
+            <h5 class="card-title">{{ user.id }} {{ user.first_name }}</h5>
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="paginator-container">
-        <mat-paginator
-          [length]="totalUsers"
-          [pageSize]="pageSize"
-          (page)="onPageChange($event)"
-          style="transform: translateY(50px); background-color: transparent"
-        ></mat-paginator>
-      </div>
+    </div>
+    <!--     paginator    -->
+    <div class="paginator-container">
+      <mat-paginator
+        [length]="totalUsers"
+        [pageSize]="pageSize"
+        (page)="onPageChange($event)"
+        style="transform: translateY(50px); background-color: transparent"
+      ></mat-paginator>
     </div>
   </ng-template>
 </div>

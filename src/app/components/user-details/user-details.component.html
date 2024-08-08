@@ -1,9 +1,6 @@
-<p>user-details works!</p>
 <div class="d-container">
   <div *ngIf="user">
-    <button mat-button (click)="goBack()" class="back-button">
-      Back to User List
-    </button>
+    <button mat-button (click)="goBack()" class="back-button">Back</button>
     <div class="user-details-container">
       <h2>User Details</h2>
       <div class="content">
@@ -23,7 +20,6 @@
           <p>{{ user?.data?.email }}</p>
         </div>
       </div>
-      <!-- <p><strong>ID:</strong> {{user?.data?.id}}</p> -->
     </div>
   </div>
 </div>
